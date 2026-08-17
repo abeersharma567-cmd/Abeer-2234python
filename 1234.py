@@ -1,0 +1,5 @@
+print("I am abeer I am a student of codingal")
+print("5")
+print("I love coding/n")
+print("bye",7)
+print("welcome to",end-""" )

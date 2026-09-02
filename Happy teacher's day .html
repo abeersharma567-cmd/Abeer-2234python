@@ -1,0 +1,429 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Teacher's Day - Albia Hossain</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #080b18;
+            color: white;
+            font-family: "Segoe UI", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Background */
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.5;
+        }
+
+        .circle1 {
+            width: 250px;
+            height: 250px;
+            background: #6c2bd9;
+            top: -80px;
+            left: -80px;
+        }
+
+        .circle2 {
+            width: 250px;
+            height: 250px;
+            background: #0077ff;
+            bottom: -100px;
+            right: -80px;
+        }
+
+        /* Main container */
+        .container {
+            width: min(92%, 700px);
+            max-height: 92vh;
+            overflow-y: auto;
+            position: relative;
+            z-index: 2;
+
+            padding: clamp(25px, 5vw, 45px);
+
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 28px;
+
+            backdrop-filter: blur(18px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+            text-align: center;
+        }
+
+        /* Hide scrollbar */
+        .container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: #777;
+            border-radius: 10px;
+        }
+
+        .icon {
+            font-size: clamp(45px, 8vw, 70px);
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: clamp(30px, 7vw, 52px);
+            margin-bottom: 10px;
+
+            background: linear-gradient(
+                90deg,
+                #ffd166,
+                #ff6b9d,
+                #9b8cff
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .teacher {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: bold;
+            margin-bottom: 22px;
+        }
+
+        .teacher span {
+            color: #ffd166;
+        }
+
+        .message {
+            color: #ddd;
+            font-size: clamp(15px, 2.5vw, 18px);
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        /* Code box */
+        .code-box {
+            text-align: left;
+            background: #05070d;
+            border: 1px solid #252b40;
+            border-radius: 15px;
+            padding: 18px;
+            font-family: Consolas, monospace;
+            font-size: clamp(12px, 2.5vw, 15px);
+            color: #8fffd4;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .purple {
+            color: #c792ea;
+        }
+
+        .yellow {
+            color: #ffd166;
+        }
+
+        .blue {
+            color: #82aaff;
+        }
+
+        /* Button */
+        button {
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            color: #111;
+            background: linear-gradient(90deg, #ffd166, #ff8fab);
+
+            cursor: pointer;
+            transition: 0.3s;
+
+            box-shadow: 0 8px 25px rgba(255, 150, 150, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 12px 35px rgba(255, 150, 150, 0.5);
+        }
+
+        /* Surprise screen */
+        #surprise {
+            display: none;
+        }
+
+        .big-heart {
+            font-size: 65px;
+            animation: heartbeat 1s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        #typing {
+            min-height: 100px;
+            margin: 20px 0;
+            font-size: clamp(18px, 4vw, 24px);
+            line-height: 1.6;
+            color: #ffd166;
+            font-weight: bold;
+        }
+
+        .final-code {
+            background: #05070d;
+            padding: 20px;
+            border-radius: 15px;
+            font-family: Consolas, monospace;
+            text-align: left;
+            color: #8fffd4;
+            margin-top: 20px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: -20px;
+            z-index: 20;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+            }
+        }
+
+        /* Mobile */
+        @media (max-height: 600px) {
+            .container {
+                padding: 20px;
+                max-height: 95vh;
+            }
+
+            .icon {
+                font-size: 40px;
+            }
+
+            .message {
+                margin-bottom: 12px;
+            }
+
+            .code-box {
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+    </div>
+
+    <main class="container">
+
+        <!-- FIRST SCREEN -->
+        <section id="main">
+
+            <div class="icon">👩‍💻</div>
+
+            <h1>Happy Teacher's Day!</h1>
+
+            <div class="teacher">
+                To <span>Albia Hossain</span> 💜
+            </div>
+
+            <p class="message">
+                Dear Ma'am, thank you for teaching us coding,
+                encouraging our creativity and helping us turn
+                ideas into something real. 💻✨
+            </p>
+
+            <div class="code-box">
+                <span class="purple">class</span>
+                Teacher {<br><br>
+
+                &nbsp;&nbsp;<span class="blue">name</span> =
+                <span class="yellow">"Albia Hossain"</span>;<br>
+
+                &nbsp;&nbsp;<span class="blue">subject</span> =
+                <span class="yellow">"Coding"</span>;<br>
+
+                &nbsp;&nbsp;<span class="blue">inspiration</span> =
+                <span class="yellow">"∞"</span>;<br><br>
+
+                }
+            </div>
+
+            <button onclick="startSurprise()">
+                🚀 Run Teacher's Day Program
+            </button>
+
+            <div class="footer">
+                Made with ❤️ and &lt;/&gt; by Abeer
+            </div>
+
+        </section>
+
+
+        <!-- SURPRISE SCREEN -->
+        <section id="surprise">
+
+            <div class="big-heart">💜</div>
+
+            <h1>Program Executed!</h1>
+
+            <div id="typing"></div>
+
+            <div class="final-code">
+                <span class="purple">if</span>
+                (teacher == <span class="yellow">"Albia Hossain"</span>) {<br><br>
+
+                &nbsp;&nbsp;console.log(
+                <span class="yellow">"Thank You Ma'am! ❤️"</span>
+                );<br><br>
+
+                &nbsp;&nbsp;inspiration++;
+                <br>
+                &nbsp;&nbsp;future = <span class="yellow">"BRIGHT"</span>;
+                <br><br>
+
+                }
+            </div>
+
+            <br>
+
+            <button onclick="restart()">
+                🔄 Run Again
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        function startSurprise() {
+
+            document.getElementById("main").style.display = "none";
+            document.getElementById("surprise").style.display = "block";
+
+            const text =
+                "Thank you for being more than a coding teacher — " +
+                "you inspire us to create, experiment, solve problems " +
+                "and never give up! 🌟";
+
+            const typing = document.getElementById("typing");
+
+            typing.innerHTML = "";
+
+            let i = 0;
+
+            function typeWriter() {
+
+                if (i < text.length) {
+
+                    typing.innerHTML += text.charAt(i);
+
+                    i++;
+
+                    setTimeout(typeWriter, 35);
+                }
+            }
+
+            typeWriter();
+
+            createConfetti();
+        }
+
+
+        function createConfetti() {
+
+            const symbols = ["🎉", "✨", "⭐", "💜", "💻", "🌟"];
+
+            for (let i = 0; i < 60; i++) {
+
+                const piece = document.createElement("div");
+
+                piece.className = "confetti";
+
+                piece.innerHTML =
+                    symbols[Math.floor(Math.random() * symbols.length)];
+
+                piece.style.left =
+                    Math.random() * 100 + "vw";
+
+                piece.style.fontSize =
+                    (12 + Math.random() * 20) + "px";
+
+                piece.style.animationDuration =
+                    (2 + Math.random() * 3) + "s";
+
+                piece.style.animationDelay =
+                    Math.random() * 1.5 + "s";
+
+                document.body.appendChild(piece);
+
+                setTimeout(() => {
+                    piece.remove();
+                }, 5500);
+            }
+        }
+
+
+        function restart() {
+
+            document.getElementById("surprise").style.display = "none";
+
+            document.getElementById("main").style.display = "block";
+
+        }
+
+    </script>
+
+</body>
+</html>
+```
